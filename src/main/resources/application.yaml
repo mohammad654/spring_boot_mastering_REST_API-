@@ -1,9 +1,31 @@
 spring:
   application:
     name: store
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: true
+
   datasource:
-    url: jdbc:mysql://localhost:3306/store_api?createDatabaseIfNotExist=true
-    username: root
-    password: MyPassword!
+    url: jdbc:mysql://localhost:3306/store_API?createDatabaseIfNotExist=true&useSSL=true&allowPublicKeyRetrieval=true&serverTimezone=UTC&socketTimeout=30000
+    username: ${DB_USERNAME:root}
+    # IMPORTANT: Set DB_PASSWORD environment variable in production!
+    # For local dev, create a ~/.env file or set in your shell profile
+    password: ${DB_PASSWORD:}
+
+  # Flyway Migration Settings
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+  # JPA / Hibernate Settings
   jpa:
+    hibernate:
+      ddl-auto: validate
     show-sql: true
+
+server:
+  port: 8081
+
