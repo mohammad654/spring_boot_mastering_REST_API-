@@ -44,12 +44,12 @@ generated using a template engine like Thymeleaf.
 @Controller for returning HTML views.
 • @RestController for returning data. Spring MVC automatically convert Java objects
 to JSON objects
-
+itrable : is an interface that represnts a collecction of elements that can be iterated over. it is the parnt interface for lists
 ===================
 
 MVC 
 REST API and API
 Tempate engine thymeleaf
 HTTP methods and url headers body status and sever side rendering (ssr) and client side rendering (csr)
-
+itrable 
 

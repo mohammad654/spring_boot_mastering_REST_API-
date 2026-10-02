@@ -5,6 +5,8 @@ import lombok.*;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,5 +35,7 @@ public class Profile {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id")
     @MapsId
+    @JsonIgnore
+    @ToString.Exclude
     private User user;
 }
