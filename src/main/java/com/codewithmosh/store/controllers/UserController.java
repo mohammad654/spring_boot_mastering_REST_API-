@@ -13,17 +13,22 @@ import com.codewithmosh.store.entities.User;
 import com.codewithmosh.store.mapper.UserMapper;
 import com.codewithmosh.store.repositories.UserRepository;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.val;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -105,7 +110,12 @@ public class UserController {
         return ResponseEntity.ok(userMapper.toDto(user));
     }
     @PostMapping
-    public ResponseEntity<UserDto> createUser(@RequestBody RegisterUserRequest request, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterUserRequest request, UriComponentsBuilder uriBuilder) {
+         var checkEmail = userRepository.existsByEmail(request.getEmail());
+        if(checkEmail){
+            return ResponseEntity.badRequest().body(Map.of("email", "Email is already registerd"));
+        }
+
         var user = userMapper.toEntity(request);   // ← userMapper is null / never injected
         userRepository.save(user);
         var userDto = userMapper.toDto(user);
@@ -147,4 +157,5 @@ public class UserController {
         userRepository.save(user);
         return ResponseEntity.noContent().build();
     }
+
 }
