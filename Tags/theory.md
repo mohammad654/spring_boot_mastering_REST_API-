@@ -586,6 +586,25 @@ DDD means understanding how a business works and designing your code around its 
 
 ---
 
+
 what is definition spring boot ?
 
 i am here
+
+authentication 
+security 
+password hashing 
+token
+role based authorizations 
+how authenttionaton methods session based and token based 
+cookie 
+jwt 
+
+what is 
+
+// Stateless sessions token base
+// Disable CSRR
+// Authorization
+
+
+hashing is one way process thtat runs a passoerd into a long string of random looking characters.

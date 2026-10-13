@@ -26,6 +26,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -49,43 +50,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 public class UserController {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    // using entity 
-    // @GetMapping()  
-    // public Iterable<User> getAllUsers(){
-    //     return  userRepository.findAll();
-    // }
-
-    // @GetMapping("/{id}")
-    // public ResponseEntity <User> getUsersByIds( @PathVariable Long id) {
-    //     var user =userRepository.findById(id).orElse(null);
-    //     if (user==null){
-    //        return ResponseEntity.notFound().build();
-    //     }
-    //     return ResponseEntity.ok(user);
-    // }
-
-    // using dto 
-      
-    // @GetMapping
-    // public List<UserDto> getAllUsers() {
-    //     return userRepository.findAll().stream()
-    //         .map(user -> new UserDto(
-    //             user.getId(),
-    //             user.getName(),
-    //             user.getEmail()
-    //         ))
-    //         .toList();
-    // }
-
-    // @GetMapping("/{id}")
-    // public ResponseEntity <UserDto> getUsersByIds( @PathVariable Long id) {
-    //     var user =userRepository.findById(id).orElse(null);
-    //     if (user==null){
-    //        return ResponseEntity.notFound().build();
-    //     }
-    //     var userDto = new UserDto(user.getId(), user.getName(),user.getEmail());
-    //     return ResponseEntity.ok(userDto);
-    // }
+    private final PasswordEncoder  passwordEncoder;
 
     // using mapper 
   @GetMapping
@@ -117,9 +82,12 @@ public class UserController {
         }
 
         var user = userMapper.toEntity(request);   // ← userMapper is null / never injected
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
+        
         var userDto = userMapper.toDto(user);
         var uri = uriBuilder.path("/users/{id}").buildAndExpand(userDto.getId()).toUri();
+        
         return ResponseEntity.created(uri).body(userDto);
     }
     @PutMapping("/{id}")
