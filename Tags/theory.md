@@ -615,3 +615,12 @@ UserDetailsService
 authentication mager 
 authentication provider 
 daoauthenticationprofidre 
+spring dotenv
+
+do not add .env to github 
+openssl rand -base64 64
+generate-random.org
+
+filter ia s class that runs before controllers and can inspect or modiry HTTP requests
+access token and refresh token 
+
