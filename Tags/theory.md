@@ -608,3 +608,10 @@ what is
 
 
 hashing is one way process thtat runs a passoerd into a long string of random looking characters.
+Forbidden 403 you are authenticated but do not have permission to access to this resource
+401 you are not authenticated or yuor credentials are invalid
+Interface 
+UserDetailsService
+authentication mager 
+authentication provider 
+daoauthenticationprofidre 
