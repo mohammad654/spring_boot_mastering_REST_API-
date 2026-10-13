@@ -9,6 +9,7 @@ import com.codewithmosh.store.dtos.ChangePasswordRequest;
 import com.codewithmosh.store.dtos.RegisterUserRequest;
 import com.codewithmosh.store.dtos.UpdateUserRequest;
 import com.codewithmosh.store.dtos.UserDto;
+import com.codewithmosh.store.entities.Role;
 import com.codewithmosh.store.entities.User;
 import com.codewithmosh.store.mapper.UserMapper;
 import com.codewithmosh.store.repositories.UserRepository;
@@ -83,6 +84,7 @@ public class UserController {
 
         var user = userMapper.toEntity(request);   // ← userMapper is null / never injected
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(Role.USER);
         userRepository.save(user);
         
         var userDto = userMapper.toDto(user);
