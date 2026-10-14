@@ -24,15 +24,15 @@ public class Cart {
     private LocalDateTime dateCreated;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.MERGE, orphanRemoval = true, fetch = FetchType.EAGER)
-    private Set<CartItem> cartItems = new LinkedHashSet<>();
+    private Set<CartItem> items = new LinkedHashSet<>();
 
     public BigDecimal getTotalPrice() {
-        return cartItems.stream()
+        return items.stream()
                 .map(CartItem::getTotalPrice)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
     public CartItem getItem(Long productId) {
-        return cartItems.stream()
+        return items.stream()
                 .filter(item -> item.getProduct().getId().equals(productId))
                 .findFirst()
                 .orElse(null);
@@ -47,7 +47,7 @@ public class Cart {
             cartItem.setProduct(product);
             cartItem.setQuantity(1);
             cartItem.setCart(this);
-            cartItems.add(cartItem);
+            items.add(cartItem);
         }
         return cartItem;
     }
@@ -55,13 +55,17 @@ public class Cart {
     public void removeItem(Long productId) {
         var cartItem = getItem(productId);
         if (cartItem != null) {
-            cartItems.remove(cartItem);
+            items.remove(cartItem);
             cartItem.setCart(null);
         }
     }
 
     public void clear() {
-        cartItems.clear();
+        items.clear();
+    }
+
+    public boolean isEmpty() {
+        return items.isEmpty();
     }
     
 }

@@ -12,7 +12,7 @@ import java.util.Optional;
 
 
 public interface CartRepository extends JpaRepository<Cart, UUID> {
-    @EntityGraph(attributePaths = "cartItems.product")
+    @EntityGraph(attributePaths = "items.product")
     @Query ("SELECT c From Cart c Where c.id=:cartId")
     Optional<Cart> getCartWithItems(@Param("cartId")UUID cartId);
   }
