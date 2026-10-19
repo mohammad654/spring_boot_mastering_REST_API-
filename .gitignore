@@ -34,3 +34,10 @@ build/
 .claude/
 
 .env
+
+### Python ###
+python/
+__pycache__/
+*.py[cod]
+api_test.py
+requirements.txt
