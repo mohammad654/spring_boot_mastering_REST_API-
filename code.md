@@ -57,3 +57,20 @@ git push -u origin validating_api_requests
 https://github.com/mosh-hamedani/spring-api-finished/commits/main/?after=9ad5b5e28134a06b1d7488b71397d97fb994bdd8+34
 
 https://members.codewithmosh.com/courses/spring-boot-mastering-apis/lectures/60802551
+
+
+
+stripe login
+keep it open 
+stripe listen --events payment_intent.succeeded,payment_intent.payment_failed --forward-to http://localhost:8081/checkout/webhook
+
+
+stripe trigger payment_intent.succeeded \
+  --remove payment_intent:payment_method_types \
+  --add 'payment_intent:automatic_payment_methods[enabled]=true' \
+  --add 'payment_intent:automatic_payment_methods[allow_redirects]=never' \
+  --add 'payment_intent:metadata[order_id]=1'
+
+
+
+  python3 run.py
