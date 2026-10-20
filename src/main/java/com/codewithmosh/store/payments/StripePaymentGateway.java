@@ -35,10 +35,7 @@ public class StripePaymentGateway implements PaymentGateway {
                     .setSuccessUrl(websiteUrl + "/checkout-success?orderId=" + order.getId())
                     .setCancelUrl(websiteUrl + "/checkout-cancel")
                     // the webhook reads order_id from the PaymentIntent, not the Session
-                    .setPaymentIntentData(
-                        SessionCreateParams.PaymentIntentData.builder()
-                            .putMetadata("order_id", order.getId().toString())
-                            .build());
+                    .setPaymentIntentData(createPaymentIntent(order));
 
             order.getItems().forEach(item -> builder.addLineItem(createLineItem(item)));
 
@@ -50,6 +47,11 @@ public class StripePaymentGateway implements PaymentGateway {
         }
     }
 
+    private static SessionCreateParams.PaymentIntentData createPaymentIntent(Order order) {
+        return SessionCreateParams.PaymentIntentData.builder()
+                .putMetadata("order_id", order.getId().toString())
+                .build();
+    }
     @Override
     public Optional<PaymentResult> parseWebhookRequest(WebhookRequest request) {
         try {

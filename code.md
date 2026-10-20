@@ -1,6 +1,6 @@
 https://github.com/mosh-hamedani/spring-api-starter
 https://github.com/mosh-hamedani/spring-api-finished 
-
+https://github.com/mosh-hamedani/spring-api-finished/commits/main/?before=9ad5b5e28134a06b1d7488b71397d97fb994bdd8+35
 # 0. first add dependency and than build it  
 # 1. Build the project (downloads deps, compiles, tests, packages)
 mvn clean install 
@@ -48,15 +48,10 @@ mvn clean install && mvn spring-boot:run
 one more time 
 https://members.codewithmosh.com/courses/spring-boot-mastering-apis/lectures/60593304
 https://members.codewithmosh.com/courses/spring-boot-mastering-apis/lectures/60802551
-
+https://members.codewithmosh.com/courses/spring-boot-mastering-apis/lectures/60593304
 
 git checkout -b validating_api_requests   
 git push -u origin validating_api_requests
-
-
-https://github.com/mosh-hamedani/spring-api-finished/commits/main/?after=9ad5b5e28134a06b1d7488b71397d97fb994bdd8+34
-
-https://members.codewithmosh.com/courses/spring-boot-mastering-apis/lectures/60802551
 
 
 
